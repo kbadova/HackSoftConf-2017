@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+<div id="booking-create-form-id" data-locationRef={{ location.ref }}>
+</div>
+
+{% block javascript %}
+  {{ block.super }}
+  <script src="{% static 'react/bookingCreate.js' %}"></script>
+{% endblock javascript %}
