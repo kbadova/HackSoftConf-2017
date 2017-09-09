@@ -7,7 +7,7 @@ from django.views import defaults as default_views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-    url(r'^booking/', include('project.backend.urls', namespace='booking', app_name='colab.backend')),
+    url(r'^booking/', include('backend.urls', namespace='booking', app_name='project.backend')),
 
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
