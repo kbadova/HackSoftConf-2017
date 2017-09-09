@@ -6,6 +6,7 @@ import {Form, Input, Label, FormGroup} from 'reactstrap';
 import VirtualizedSelect from 'react-virtualized-select';
 
 import FormMixin from './FormMixin';
+import './bookingCreate.scss';
 
 class BookingCreate extends React.Component {
   constructor(props) {
@@ -58,11 +59,15 @@ class BookingCreate extends React.Component {
     const room = this.state.bookingCreateForm.fields.tenant.room;
     const tenantChoices = this.state.bookingCreateForm.fields.tenant.choices;
     const roomChoices = this.state.bookingCreateForm.fields.room.choices;
+    const formErrors = this.state.bookingCreateForm.formErrors;
 
     return (
       <div>
         <Form>
           <FormGroup>
+            {formErrors.map(error => (
+              <span className="error-message">{error}</span>
+            ))}
             <DatePicker />
             <DatePicker />
 

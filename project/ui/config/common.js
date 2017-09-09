@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = function (config) {
   return {
     entry: {
-      bookingCreate: './src/bookingCreate.jsx',
+      bookingCreate: './src/BookingCreate.jsx',
     },
     output: {
       filename: config.DIST_DIR + '/react/[name].js',
