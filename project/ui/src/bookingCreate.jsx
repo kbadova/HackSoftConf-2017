@@ -6,7 +6,6 @@ class BookingCreate extends React.Component {
     return <div>haha</div>;
   }
 }
-console.log('sd');
 
 ReactDOM.render(
   <BookingCreate />,

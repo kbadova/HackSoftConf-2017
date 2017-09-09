@@ -7,7 +7,6 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-import os
 import environ
 ROOT_DIR = environ.Path(__file__) - 3  # (project/config/settings/base.py - 3 = project/)
 APPS_DIR = ROOT_DIR.path('project')
@@ -43,6 +42,7 @@ DJANGO_APPS = [
 
     # Admin
     'django.contrib.admin',
+    'backend'
 ]
 THIRD_PARTY_APPS = [
     'crispy_forms',  # Form layouts
