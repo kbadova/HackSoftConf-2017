@@ -7,7 +7,7 @@ from ..services import create_booking
 from ..models import Room, Tenant
 
 
-class BookingRequestApi(APIView):
+class BookingCreateApi(APIView):
     def post(self, request, *args, **kwargs):
         serializer = BookingCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
