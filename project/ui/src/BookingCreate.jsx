@@ -106,7 +106,6 @@ class BookingCreate extends React.Component {
     );
   }
 }
-
 ReactDOM.render(
   <BookingCreate />,
   document.getElementById('booking-create-form-id')
