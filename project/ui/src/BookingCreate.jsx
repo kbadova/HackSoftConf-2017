@@ -7,6 +7,8 @@ import VirtualizedSelect from 'react-virtualized-select';
 import FormMixin from './FormMixin';
 
 import {roomService} from './roomService';
+import {tenantService} from './tenantService';
+
 import './bookingCreate.scss';
 
 class BookingCreate extends React.Component {
@@ -47,15 +49,14 @@ class BookingCreate extends React.Component {
             choices: [],
             selectize: {
               value: 'id',
-              label: 'number'
+              label: 'email'
             }
           }
         }
       }
     };
   }
-
-  componentDidMount() {
+  fetchRooms() {
     roomService
       .fetchRooms()
       .then(data =>
@@ -64,6 +65,21 @@ class BookingCreate extends React.Component {
           data
         )
       );
+  }
+
+  fetchTenants(params) {
+    tenantService
+      .fetchTenants(params)
+      .then(data =>
+        this.updateSelectizeChoices(
+          'bookingCreateForm.fields.tenant.choices',
+          data
+        )
+      );
+  }
+  componentDidMount() {
+    this.fetchRooms();
+    this.fetchTenants();
   }
 
   render() {
@@ -88,9 +104,9 @@ class BookingCreate extends React.Component {
             <VirtualizedSelect
               options={roomChoices}
               placeholder="Select a room"
+              value={room}
               onChange={room =>
                 this.updateState('bookingCreateForm.fields.room.value', room)}
-              value={room}
             />
             <span className="error-message">
               {this.state.bookingCreateForm.fields.room.errors}
@@ -100,7 +116,7 @@ class BookingCreate extends React.Component {
             <Label className="control-label">TENANT</Label>
             <VirtualizedSelect
               options={tenantChoices}
-              placeholder={'Select a tenant'}
+              placeholder="Select a tenant"
               value={tenant}
               onChange={tenant =>
                 this.updateState(
@@ -108,11 +124,7 @@ class BookingCreate extends React.Component {
                   tenant
                 )}
               onInputChange={query => {
-                this.updateSelectizeChoices(
-                  'fields.prospect.choices',
-                  query,
-                  this.getUsers
-                );
+                this.fetchTenants(query);
               }}
             />
             <span className="error-message">

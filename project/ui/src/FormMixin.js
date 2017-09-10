@@ -30,7 +30,6 @@ const FormMixin = {
     if (paths_list.length < 1) {
       return;
     }
-
     _.range(paths_list.length).forEach(function(index) {
       let key = paths_list[index];
 

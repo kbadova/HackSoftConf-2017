@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 
 from .apis.bookings import BookingCreateApi
 from .apis.rooms import RoomListApi
+from .apis.tenants import TenantListApi
 
 
 urlpatterns = [
@@ -20,5 +21,10 @@ urlpatterns = [
         regex=r'^rooms/$',
         view=RoomListApi.as_view(),
         name='rooms'
+    ),
+    url(
+        regex=r'^tenants/$',
+        view=TenantListApi.as_view(),
+        name='tenants'
     ),
 ]
