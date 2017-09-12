@@ -42,6 +42,7 @@ const FormMixin = {
 
     return state;
   },
+
   updateSelectizeChoices(path, data) {
     let splittedPath = path.split('.');
     splittedPath.pop(); // Remove 'choices'

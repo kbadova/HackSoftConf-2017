@@ -6,11 +6,13 @@ import {Form, Input, Label, FormGroup} from 'reactstrap';
 import VirtualizedSelect from 'react-virtualized-select';
 import FormMixin from './FormMixin';
 
+import navBar from './navBar';
 import {roomService} from './roomService';
 import {tenantService} from './tenantService';
 
 import './bookingCreate.scss';
 
+@navBar()
 class BookingCreate extends React.Component {
   constructor(props) {
     super(props);
