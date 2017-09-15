@@ -13,7 +13,7 @@ import {bookingService} from './bookingService';
 
 import './bookingCreate.scss';
 
-@navBar()
+// @navBar()
 class BookingCreate extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +26,7 @@ class BookingCreate extends React.Component {
         formErrors: [],
         fields: {
           room: {
-            value: null,
+            value: '',
             choices: [],
             errors: [],
             selectize: {
@@ -35,7 +35,7 @@ class BookingCreate extends React.Component {
             }
           },
           tenant: {
-            value: null,
+            value: '',
             errors: [],
             choices: [],
             selectize: {
@@ -71,7 +71,6 @@ class BookingCreate extends React.Component {
 
   handlePost = () => {
     const data = this.getFormFieldValues('bookingCreateForm');
-    console.log(data);
     const params = {
       csrfToken: this.state.bookingCreateForm.csrfToken,
       data: data
@@ -79,7 +78,9 @@ class BookingCreate extends React.Component {
     bookingService
       .createBooking(params)
       .then(() => console.log('Created'))
-      .catch(err => this.handleError(err.response, 'bookingCreateForm'));
+      .catch(err => {
+        this.handleError(err.response, 'bookingCreateForm');
+      });
   };
   componentDidMount() {
     this.fetchRooms();
