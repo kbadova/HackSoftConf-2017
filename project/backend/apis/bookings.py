@@ -17,8 +17,6 @@ class BookingCreateApi(APIView):
         tenant = get_object_or_404(Tenant, id=validated_data['tenant'])
 
         booking = create_booking(room=room,
-                                 tenants=tenant,
-                                 start_date=validated_data['start_date'],
-                                 end_date=validated_data['endt_date'])
+                                 tenants=tenant)
 
         return Response({'booking_id': str(booking.id)}, status=status.HTTP_201_CREATED)

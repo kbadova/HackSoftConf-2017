@@ -6,10 +6,12 @@ const BASE_URL = `${location.protocol}//${location.host}`;
 const dataExtractor = res => res.data;
 const errorHandler = err => err;
 
-export const roomService = {
-  fetchRooms() {
+export const bookingService = {
+  createBooking(params) {
+    const url = `${BASE_URL}/backend/booking/create/`;
+    const config = {headers: {'X-CSRFToken': params.csrfToken}};
     return axios
-      .get(`${BASE_URL}/backend/rooms/`)
+      .post(url, params.data, config)
       .then(dataExtractor)
       .catch(errorHandler);
   }

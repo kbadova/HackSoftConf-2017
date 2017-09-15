@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import {Cookies} from 'react-cookie';
-import {Form, Input, Label, FormGroup} from 'reactstrap';
+import {Form, Input, Label, FormGroup, Button} from 'reactstrap';
 import VirtualizedSelect from 'react-virtualized-select';
 import FormMixin from './FormMixin';
 
 import navBar from './navBar';
 import {roomService} from './roomService';
 import {tenantService} from './tenantService';
+import {bookingService} from './bookingService';
 
 import './bookingCreate.scss';
 
@@ -32,18 +33,6 @@ class BookingCreate extends React.Component {
               value: 'id',
               label: 'room_number'
             }
-          },
-          startDate: {
-            value: moment()
-              .add(1, 'days')
-              .format('YYYY-MM-DD'),
-            errors: []
-          },
-          endDate: {
-            value: moment()
-              .add(2, 'days')
-              .format('YYYY-MM-DD'),
-            errors: []
           },
           tenant: {
             value: null,
@@ -79,6 +68,19 @@ class BookingCreate extends React.Component {
         )
       );
   }
+
+  handlePost = () => {
+    const data = this.getFormFieldValues('bookingCreateForm');
+    console.log(data);
+    const params = {
+      csrfToken: this.state.bookingCreateForm.csrfToken,
+      data: data
+    };
+    bookingService
+      .createBooking(params)
+      .then(() => console.log('Created'))
+      .catch(err => this.handleError(err.response, 'bookingCreateForm'));
+  };
   componentDidMount() {
     this.fetchRooms();
     this.fetchTenants();
@@ -98,8 +100,6 @@ class BookingCreate extends React.Component {
           {formErrors.map(error => (
             <span className="error-message">{error}</span>
           ))}
-          {/*<DatePicker />*/}
-          {/*<DatePicker />*/}
 
           <FormGroup>
             <Label className="control-label">ROOM</Label>
@@ -133,6 +133,7 @@ class BookingCreate extends React.Component {
               {this.state.bookingCreateForm.fields.tenant.errors}
             </span>
           </FormGroup>
+          <Button onClick={this.handlePost}>Submit</Button>
         </Form>
       </div>
     );
